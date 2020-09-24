@@ -18,7 +18,7 @@
         ]
     },
     "options_page": "options.html",
-    "homepage_url": "https://github.com/catdarick/open-in-vscode,
+    "homepage_url": "https://github.com/catdarick/open-in-vscode",
     "offline_enabled": true,
     "icons": {
         "16": "icons/icon16.png",
