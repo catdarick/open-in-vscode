@@ -16,7 +16,7 @@ function getOptions() {
 }
 
 function getVscodeLink({
-    repo, file, isFolder, line,
+    repo, file, line,
 }) {
     return getOptions()
         .then(({ insidersBuild, basePath, debug }) => {
@@ -34,9 +34,6 @@ function getVscodeLink({
             vscodeLink += `${basePath}/${repo}/${file}`;
 
             // opening a folder and not a file
-            if (isFolder) {
-                vscodeLink += '/';
-            }
 
             if (line) {
                 vscodeLink += `:${line}:1`;
@@ -52,32 +49,42 @@ function getVscodeLink({
 
 function parseLink(linkUrl) {
     return new Promise((resolve, reject) => {
-        const url = new URL(linkUrl);
-        const path = url.pathname;
-
-        const pathRegexp = /.+\/([^/]+)\/(blob|tree)\/[^/]+\/(.*)/;
-
-        if (!pathRegexp.test(path)) {
-            reject(new Error(`Invalid link. Could not extract info from: ${path}.`));
-            return;
+        const pathRegexpWithLinePR = /\.org\/.+?\/(.+?)\/.+#chg_(.+)(_newline|_oldline)(.+)/;
+        const pathRegexpWithLine = /\.org\/.+?\/(.+?)src\/.+?\/(.+)#lines-()(.+)/;
+        const pathRegexp = /\.org\/.+?\/(.+?)src\/.+?\/(.+)/;
+        var pathInfo;
+        var line;
+        if (!pathRegexpWithLinePR.test(linkUrl)) {
+            if (!pathRegexpWithLine.test(linkUrl))
+            {
+                if (!pathRegexp.test(linkUrl))
+                {
+                reject(new Error(`Invalid link. Could not extract info from: ${linkUrl}.`));
+                return;
+                }
+                else
+                {
+                    pathInfo = pathRegexp.exec(linkUrl);
+                    pathInfo.push(1);
+                }
+            }
+            else
+            {
+                pathInfo = pathRegexpWithLine.exec(linkUrl);
+            }
         }
-
-        const pathInfo = pathRegexp.exec(path);
+        else
+        {
+           pathInfo = pathRegexpWithLinePR.exec(linkUrl);
+        }
 
         const repo = pathInfo[1];
-        const isFolder = pathInfo[2] === 'tree';
-        const file = pathInfo[3];
-
-        let line;
-
-        if (url.hash.indexOf('#L') === 0) {
-            line = url.hash.substring(2);
-        }
+        const file = pathInfo[2];
+        line = pathInfo[4];
 
         resolve({
             repo,
             file,
-            isFolder,
             line,
         });
     });
