@@ -1,13 +1,13 @@
 {
     "manifest_version": 2,
-    "name": "Open in VSCode",
+    "name": "Open in VSCode (BitBucket)",
     "version": "1.0.0",
-    "description": "Open Github and Gitlab links in VSCode",
+    "description": "Open BitBucket links in VSCode",
     "page_action": {
         "default_icon": "icons/icon19.png",
-        "default_title": "Open in VSCode"
+        "default_title": "Open in VSCode (BitBucket)"
     },
-    "author": "Domenico Gemoli",
+    "author": "Domenico Gemoli (reworked for BitBucket by Alexey Kurdyukov)",
     "permissions": [
         "contextMenus",
         "storage"
@@ -18,7 +18,7 @@
         ]
     },
     "options_page": "options.html",
-    "homepage_url": "https://github.com/aberonni/open-in-vscode",
+    "homepage_url": "https://github.com/catdarick/open-in-vscode,
     "offline_enabled": true,
     "icons": {
         "16": "icons/icon16.png",
