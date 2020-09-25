@@ -6,7 +6,7 @@
 
 ## Installation
 
-Install folder `src` following [this](https://webkul.com/blog/how-to-install-the-unpacked-extension-in-chrome/) guide. Once you have installed, make sure to configure the extension in the options page.
+Install `src` folder following [this](https://webkul.com/blog/how-to-install-the-unpacked-extension-in-chrome/) guide. Once you have installed, make sure to configure the extension in the options page.
 You can do this by right clicking on the "Open in VSCode" icon in the extensions bar on chrome, and then selecting "Options".
 
 ## Usage
